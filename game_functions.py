@@ -85,7 +85,7 @@ def get_number_aliens_x(ai_settings, alien_width):
 
 
 def get_number_rows(ai_settings, ship_height, alien_height):
-    """Determin the number of rows of aliens that fit on the screen."""
+    """Determine the number of rows of aliens that fit on the screen."""
     available_space_y = (ai_settings.screen_height - (3 * alien_height) - ship_height)
     number_rows = int(available_space_y / (2 * alien_height))
     return number_rows
@@ -131,19 +131,22 @@ def change_fleet_direction(ai_settings, aliens):
 
 def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
     """Respond the ship being hit by alien."""
-    # Decrement ships_left
-    stats.ship_left -= 1
+    if ship.ship_left > 0:
+        # Decrement ships_left
+        stats.ship_left -= 1
 
-    # Empty the list of alien and bullets.
-    aliens.empty()
-    bullets.empty()
+        # Empty the list of alien and bullets.
+        aliens.empty()
+        bullets.empty()
 
-    # Create new fleet and center the ship
-    create_fleet(ai_settings, screen, ship, aliens)
-    ship.center_ship()
+        # Create new fleet and center the ship
+        create_fleet(ai_settings, screen, ship, aliens)
+        ship.center_ship()
 
-    # pause
-    sleep(0.5)
+        # pause
+        sleep(0.5)
+    else:
+        stats.game_active = False
 
 
 def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
@@ -168,4 +171,4 @@ def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
     if pygame.sprite.spritecollideany(ship, aliens):
         ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
 
-    check_aliens_bottom(ai_settings, stats, screen, ship.aliens, bullets)
+    check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets)
