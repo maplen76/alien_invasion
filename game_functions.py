@@ -57,7 +57,7 @@ def update_screen(ai_settings, screen, ship, aliens, bullets):
 
 
 def update_bullets(ai_settings, screen, ship, bullets, aliens):
-    """Update the postion of bullets and get rid of old bullets."""
+    """Update the position of bullets and get rid of old bullets."""
     # Update bullets position
     bullets.update()
 
@@ -131,7 +131,7 @@ def change_fleet_direction(ai_settings, aliens):
 
 def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
     """Respond the ship being hit by alien."""
-    if ship.ship_left > 0:
+    if stats.ship_left > 0:
         # Decrement ships_left
         stats.ship_left -= 1
 
